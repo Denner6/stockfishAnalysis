@@ -1,0 +1,81 @@
+.analyze {
+    padding: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pair {
+    padding: 10px;
+}
+
+.pair>div {
+    display: flex;
+    align-items: center;
+    width: 569px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+label {
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(153, 153, 153);
+}
+
+.fen>label {
+    margin-left: 1px
+}
+
+input, textarea {
+    border-radius: 5px;
+    border: 1px solid #404040;
+    width: 500px;
+    height: 30px;
+    font-size: 14px;
+    padding: 8px 13px; 
+    font-weight: 500;
+}
+
+textarea {
+    text-indent: 0;
+    display: inline-block;
+    text-align: start;
+    cursor: text;
+    overflow-wrap: break-word;
+    column-count: initial !important;
+    min-height: 80px;
+    resize: vertical;
+    width: 500px;
+    text-wrap: wrap;
+    letter-spacing: 0;
+}
+
+.import-pgn-btn {
+    position: absolute;
+    background-color: #3692e7;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.225);
+    font-family: "Roboto", sans-serif;
+    border: none;
+    font-weight: 600;
+    bottom: -18px;
+    right: 0;
+    border-radius: 0 0 5px 5px;
+    transition: all 150ms;
+    visibility: hidden;
+    opacity: 0;
+    width: 115px;
+    height: 18px;
+    transition: all 150ms;
+}
+
+.pair>div:focus-within .import-pgn-btn {
+   visibility: visible; 
+   opacity: 1;
+}

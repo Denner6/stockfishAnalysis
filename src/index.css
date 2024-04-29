@@ -1,0 +1,13 @@
+.App {
+    padding: 20px;
+    padding-top: 10px;
+}
+
+body {
+    color-scheme: dark;
+    background: #161512 linear-gradient(to bottom, hsl(37, 12%, 16%), hsl(37, 10%, 8%) 116px) no-repeat;
+}
+
+html {
+    font-family: "Noto Sans", Sans-Serif;
+}
