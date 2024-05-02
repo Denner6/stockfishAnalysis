@@ -1,4 +1,4 @@
-import movesJson from "../../gameMoves.json";
+import movesJson from "../gameMoves.json";
 import bookMovesFenArrayJson from "./bookMoves.json";
 import BookMoves from "@routes/bookMoves";
 
