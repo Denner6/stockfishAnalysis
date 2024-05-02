@@ -11,10 +11,6 @@ interface BookMove {
     //aliases: Object
 }
 
-
-
-
-
 const fens = [
   'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
   'rnbqkbnr/pppp1ppp/8/4p3/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2',

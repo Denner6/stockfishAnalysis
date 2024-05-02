@@ -9,9 +9,18 @@
         "emitDecoratorMetadata": true,
         "downlevelIteration": true,
         "resolveJsonModule": true,
+        "removeComments": true,
+        "baseUrl": "./",
+        "paths": {
+            "@routes/*": ["routes/*"] 
+        },
+    },
+    "_moduleAliases": {
+        "@routes": ["routes/*"]
     },
     "include": [
-        "src/*"
+        "src/*",
+        "routes/*"
     ],
     "exclude": [
         "node_modules",

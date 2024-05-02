@@ -37,7 +37,6 @@ class Engine {
         const bestsMoves: BestsMoves[] = [];
         const engine = await this.setupEngine();
         try {
-
             for (const fen of fenArray) {
                 await engine.position(fen);
                 const result = await engine.go({ depth: 15 });
@@ -47,9 +46,8 @@ class Engine {
                     fen: this.convertBestMoveToFenString(result.bestmove, fen)
                 })
             }
-            //await engine.quit()
         } catch(error) {
-            console.error(error)
+            throw error;
         } finally {
             await engine.quit() 
         }
@@ -107,7 +105,7 @@ const fens = [
 ]
 
 
-Engine.getBestMoves(fens)
-    .then(data => console.log(data));
+//Engine.getBestMoves(fens)
+  //  .then(data => console.log(data));
 
 export default Engine;

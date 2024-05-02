@@ -1,5 +1,4 @@
 import { Chess } from "chess.js";
-import { Worker } from "worker_threads";
 import { isNull } from "util";
 
 import BookMoves from "./bookMoves";
@@ -34,35 +33,13 @@ Kg3 Rh8 48. Rc7 1/2-1/2
 
 
 
-function sendMessageToWorker(data: string[], worker: Worker): Promise<any> {
-    return new Promise((resolve, reject) => {
-        worker.on("message", bestsMoves => {
-            resolve(bestsMoves)
-        });
-
-        worker.on("error", error => {
-            reject(error);
-        });
-        worker.postMessage(data);
-    });
-}
-
-const getFenHalf = (fens: string[]): Array<string[]> => {
-    const tamanhoSubarray = Math.ceil(fens.length / 3);
-
-    const fensHalf1 = fens.slice(0, tamanhoSubarray);
-    const fensHalf2 = fens.slice(tamanhoSubarray, tamanhoSubarray * 2);
-    const fensHalf3 = fens.slice(tamanhoSubarray * 2);
-    return [fensHalf1, fensHalf2, fensHalf3]
-}
-
 function getFenHistory(): string[] {
     const chess1 = new Chess();
     const chess2 = new Chess();
     chess1.loadPgn(pgn);
 
     const chessHistory = chess1.history();
-    const fens = chessHistory.map((move) => {
+    const fens = chessHistory.map((move: string) => {
         chess2.move(move)
         return chess2.fen();
     })
@@ -84,40 +61,20 @@ function removeBookMovesFromMovesArray(fens: string[], bookMoves: string[]) {
 
 async function main() {
     console.time()
-    const fens = getFenHistory();
-    const bookMovesObjects = await BookMoves.getBookMoves(fens);
-    const bookMovesFenArray = bookMovesObjects.map((bookMoveObject) => bookMoveObject.fen) 
-    const stockfishFens = removeBookMovesFromMovesArray(fens, bookMovesFenArray)
-    
-    const stockfish = await Engine.getBestMoves(stockfishFens)
-
-    console.log(stockfish) 
-    console.log(stockfish.length) 
-    console.timeEnd()
-    //console.time()
-    /*
-    const [fensHalf1, fensHalf2, fensHalf3] = getFenHalf(stockfishFens)
-    const stockfishWorker1: Worker = new Worker("./stockfishWorker.js");
-    const stockfishWorker2: Worker = new Worker("./stockfishWorker.js");
-    const stockfishWorker3: Worker = new Worker("./stockfishWorker.js");
-
     try {
-        const [result1, result2, result3] = await Promise.all([
-            sendMessageToWorker(fensHalf1, stockfishWorker1),
-            sendMessageToWorker(fensHalf2, stockfishWorker2),
-            sendMessageToWorker(fensHalf3, stockfishWorker3)
-        ]);
-        
-        const bestsMoves = [...result1, ...result2, ...result3];
+        const fens = getFenHistory();
+        const bookMovesObjects = await BookMoves.getBookMoves(fens);
+        const bookMovesFenArray = bookMovesObjects.map((bookMoveObject) => bookMoveObject.fen) 
+        const stockfishFens = removeBookMovesFromMovesArray(fens, bookMovesFenArray)
 
-        console.log(bestsMoves, bestsMoves.length);
-    } catch(error) {
-        console.error(error);
-    } finally {
-        stockfishWorker1.terminate();
-        stockfishWorker2.terminate();
+        const stockfish = await Engine.getBestMoves(stockfishFens)
+
+        console.log(fens) 
+        console.log(stockfish.length) 
+        console.timeEnd()
+    } catch(e) {
+        console.error(e)
     }
-    console.timeEnd();*/
 }
 
 main();
