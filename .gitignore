@@ -1,1 +1,2 @@
-./server/routes/stockfish/stockfish-exec
+server/routes/stockfish/*
+node_modules
